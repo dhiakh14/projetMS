@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/userM/pom.xml" />
         <option value="$PROJECT_DIR$/tacheEtLivrable/pom.xml" />
+        <option value="$PROJECT_DIR$/MSS/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
