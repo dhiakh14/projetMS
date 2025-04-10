@@ -11,6 +11,15 @@
         <module name="config-server" />
         <module name="Gateway" />
       </profile>
+      <profile name="Annotation profile for LivrableMs" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="LivrableMs" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="tacheEtLivrable" target="17" />
@@ -23,6 +32,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Discovery" options="-parameters" />
       <module name="Gateway" options="-parameters" />
+      <module name="LivrableMs" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="tachEtLivrable" options="-parameters" />
       <module name="tacheEtLivrable" options="-parameters" />
