@@ -1,4 +1,4 @@
-package com.pi.Gateway;
+package com.pi.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,15 +15,13 @@ public class ApiGatewayApplication {
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
 
-	@Bean
-	public RouteLocator apigatewayRoutes(RouteLocatorBuilder builder){
-		return builder.routes()
-				.route("Candidat",r->r.path("/candidats/**")
-						.uri("lb://candidat") )
-				.route("Job", r->r.path("/jobs/**")
-						.uri("lb://job") )
-				.build();
-	}
+//	@Bean
+//	public RouteLocator apigatewayRoutes(RouteLocatorBuilder builder){
+//		return builder.routes()
+//				.route("Project",r->r.path("/projet/**")
+//						.uri("lb://PROJECT"))
+//				.build();
+//	}
 }
 
 
