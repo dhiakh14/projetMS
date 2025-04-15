@@ -8,16 +8,21 @@
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/userM/pom.xml" />
         <option value="$PROJECT_DIR$/tacheEtLivrable/pom.xml" />
-        <option value="$PROJECT_DIR$/LivrableMs/pom.xml" />
+        <option value="$PROJECT_DIR$/userMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Pi4/pom.xml" />
+        <option value="$PROJECT_DIR$/GestionPlanning/pom.xml" />
+        <option value="$PROJECT_DIR$/ProjectMG/pom.xml" />
+        <option value="$PROJECT_DIR$/Roles/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/userM/pom.xml" />
+        <option value="$PROJECT_DIR$/userMS/pom.xml" />
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
