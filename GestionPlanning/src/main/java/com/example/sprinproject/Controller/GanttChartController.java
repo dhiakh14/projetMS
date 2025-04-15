@@ -4,6 +4,7 @@ import com.example.sprinproject.Entity.GanttChart;
 import com.example.sprinproject.Entity.Task;
 import com.example.sprinproject.Service.GanttChartService;
 import com.example.sprinproject.repository.GanttChartRepository;
+<<<<<<< HEAD
 import com.example.sprinproject.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+>>>>>>> origin/lahmer
 
 @RestController
 @RequestMapping("/gantt-chart")
@@ -22,14 +29,18 @@ public class GanttChartController {
     private GanttChartService ganttChartService;
     @Autowired
     private GanttChartRepository ganttChartRepo;
+<<<<<<< HEAD
     @Autowired
     private TaskRepo taskRepo;
+=======
+>>>>>>> origin/lahmer
 
     @PostMapping("/save")
     public GanttChart saveGanttChart(@RequestBody GanttChart ganttChart) {
         System.out.println("Received GanttChart: " + ganttChart);
         System.out.println("Tasks in GanttChart: " + ganttChart.getTasks());
 
+<<<<<<< HEAD
         List<Task> existingTasks = new ArrayList<>();
 
         if (ganttChart.getTasks() != null) {
@@ -47,13 +58,23 @@ public class GanttChartController {
         ganttChart.setTasks(existingTasks); // Only add existing tasks
         GanttChart savedGanttChart = ganttChartRepo.save(ganttChart);
 
+=======
+        for (Task task : ganttChart.getTasks()) {
+            task.setGanttChart(ganttChart);
+        }
+
+        GanttChart savedGanttChart = ganttChartRepo.save(ganttChart);
+>>>>>>> origin/lahmer
         System.out.println("Saved GanttChart: " + savedGanttChart);
         return savedGanttChart;
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> origin/lahmer
     @GetMapping("/all")
     public List<GanttChart> getAllGanttCharts() {
         List<GanttChart> ganttCharts = ganttChartRepo.findAllWithTasks();

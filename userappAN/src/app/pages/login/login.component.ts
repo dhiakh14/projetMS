@@ -1,18 +1,29 @@
+<<<<<<< HEAD
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthenficationRequest } from "../../services/models/authenfication-request";
+=======
+import { Component } from '@angular/core';
+import {AuthenficationRequest} from "../../services/models/authenfication-request"
+>>>>>>> origin/lahmer
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/services';
 import { TokenService } from 'src/app/token/token.service';
 import { TranslateService } from '@ngx-translate/core';
+<<<<<<< HEAD
 import { environment } from '../../../environments/environment';
 
 declare const google: any;
+=======
+
+
+>>>>>>> origin/lahmer
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+<<<<<<< HEAD
 export class LoginComponent implements OnInit {
   authRequest: AuthenficationRequest = { email: '', password: '' };
   errorMsg: Array<string> = [];
@@ -206,6 +217,51 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+=======
+export class LoginComponent {
+
+
+authRequest : AuthenficationRequest = {email: '', password: ''};
+errorMsg: Array<String>= [];
+showPassword = false;
+constructor(private router : Router,
+  private authService : AuthenticationService,
+  private tokenServcie : TokenService,
+  private translate: TranslateService
+
+) {}
+
+login() {
+  this.errorMsg = [];
+  this.authService.authenticate({
+    body: this.authRequest
+  }).subscribe({
+    next: (res) => {
+      this.tokenServcie.token = res.token as string;
+      const decodedToken = this.tokenServcie.getDecodedToken();
+
+      if (decodedToken) {
+        const idUser = this.tokenServcie.getUserId();
+        const userRole = decodedToken.roles[0]; 
+
+        if (userRole === 'ADMIN') {
+          this.router.navigate([`/profile/${idUser}`]); 
+        } else {
+          this.router.navigate(['/notadminusers']); 
+        }
+      }
+    },
+    error: (err) => {
+      console.log(err);
+      if (err.error.validationErrors) {
+        this.errorMsg = err.error.validationErrors;
+      } else {
+        this.errorMsg.push(err.error.error);
+      }
+    }
+  });
+}
+>>>>>>> origin/lahmer
 
   register() {
     this.router.navigate(['register']);
@@ -215,6 +271,7 @@ export class LoginComponent implements OnInit {
     const selectedLang = (event.target as HTMLSelectElement).value;
     if (selectedLang) {
       this.translate.use(selectedLang);
+<<<<<<< HEAD
       this.initializeGoogleSignIn(); // Reinitialize Google button with new language
     }
   }
@@ -223,3 +280,13 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 }
+=======
+    }}
+
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    }  
+
+
+}
+>>>>>>> origin/lahmer

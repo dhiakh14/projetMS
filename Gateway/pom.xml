@@ -6,10 +6,14 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<version>3.3.1</version>
 =======
 		<version>3.3.3</version>
 >>>>>>> origin/abir
+=======
+		<version>3.3.1</version>
+>>>>>>> origin/lahmer
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pi</groupId>
@@ -33,7 +37,13 @@
 	<properties>
 		<java.version>17</java.version>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
+=======
+		<spring-cloud.version>2023.0.3</spring-cloud.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+>>>>>>> origin/lahmer
 	</properties>
 	<dependencies>
 		<dependency>
@@ -49,6 +59,7 @@
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
 
+<<<<<<< HEAD
 =======
 		<spring-cloud.version>2023.0.5</spring-cloud.version>
 	</properties>
@@ -70,10 +81,13 @@
 <!--			<artifactId>spring-cloud-starter-gateway-mvc</artifactId>-->
 <!--		</dependency>-->
 >>>>>>> origin/abir
+=======
+>>>>>>> origin/lahmer
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 		<dependency>
@@ -95,6 +109,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 >>>>>>> origin/abir
+=======
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+>>>>>>> origin/lahmer
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>

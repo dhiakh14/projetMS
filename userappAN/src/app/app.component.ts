@@ -9,6 +9,7 @@ export class AppComponent {
   title = 'userappAN';
   isSidebarVisible = false;
 
+<<<<<<< HEAD
 
   toggleSidebar(isVisible: boolean) {
     this.isSidebarVisible = isVisible;
@@ -16,3 +17,12 @@ export class AppComponent {
 
  
 }
+=======
+  toggleSidebar(isVisible: boolean) {
+    this.isSidebarVisible = isVisible;
+  }
+  
+
+ 
+} 
+>>>>>>> origin/lahmer

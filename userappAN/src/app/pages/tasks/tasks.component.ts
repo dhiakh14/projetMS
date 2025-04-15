@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from 'src/app/services1/models';
@@ -9,6 +10,15 @@ import { SaveGanttChart$Params } from 'src/app/services1/fn/gantt-chart-controll
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PredictDuration$Params } from 'src/app/services1/fn/task-controller/predict-duration';
  
+=======
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Task } from 'src/app/services1/models';
+import { TaskControllerService } from 'src/app/services1/services';
+import { GanttChartControllerService, SaveGanttChart$Params } from 'src/app/services1/services/gantt-chart-controller.service';
+import 'dhtmlx-gantt'; // Import the Gantt library
+declare const gantt: any; // Declare the Gantt library
+>>>>>>> origin/lahmer
 
 @Component({
   selector: 'app-tasks',
@@ -16,6 +26,7 @@ import { PredictDuration$Params } from 'src/app/services1/fn/task-controller/pre
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit, AfterViewInit {
+<<<<<<< HEAD
 
   tasks: Task[] = []; 
   filteredTasks: Task[] = []; 
@@ -45,10 +56,31 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   }
 
+=======
+  tasks: Task[] = []; // List of all tasks
+  filteredTasks: Task[] = []; // List of filtered tasks based on search
+  selectedTaskIds: Set<number> = new Set(); // Set of selected task IDs
+  searchQuery: string = ''; // Search query for filtering tasks
+  ganttData: any; // Variable to store Gantt chart data
+
+  constructor(
+    private taskService: TaskControllerService,
+    private ganttChartService: GanttChartControllerService, // Inject Gantt chart service
+    private router: Router
+  ) {}
+
+  // Initialize the Gantt chart after the view is loaded
+  ngAfterViewInit(): void {
+    gantt.init('gantt-container');
+  }
+
+  // Load tasks when the component initializes
+>>>>>>> origin/lahmer
   ngOnInit(): void {
     this.loadTasks();
   }
 
+<<<<<<< HEAD
   private initializeGantt(): void {
     if (typeof gantt === 'undefined') {
       console.error('Gantt library not loaded!');
@@ -185,6 +217,9 @@ export class TasksComponent implements OnInit, AfterViewInit {
   
 
 
+=======
+  // Fetch all tasks from the backend
+>>>>>>> origin/lahmer
   loadTasks(): void {
     this.taskService.getAllTasks().subscribe(
       (response) => {
@@ -217,6 +252,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
     );
   }
 
+<<<<<<< HEAD
+=======
+  // Toggle selection of a task
+>>>>>>> origin/lahmer
   toggleSelection(taskId: number): void {
     if (this.selectedTaskIds.has(taskId)) {
       this.selectedTaskIds.delete(taskId);
@@ -234,6 +273,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
       return;
     }
   
+<<<<<<< HEAD
     this.ganttData = {
       taskName: 'Generated Gantt Chart', 
       startDate: this.convertToBackendDateFormat(selectedTasks[0].startDate || ''), 
@@ -247,6 +287,22 @@ export class TasksComponent implements OnInit, AfterViewInit {
         planned_end_date: this.convertToBackendDateFormat(task.planned_end_date || ''),
         actual_end_date: this.convertToBackendDateFormat(task.actual_end_date || ''),
         status: task.status || 'PENDING' 
+=======
+    // Prepare the Gantt chart data
+    this.ganttData = {
+      taskName: 'Generated Gantt Chart', // Example name
+      startDate: this.convertToBackendDateFormat(selectedTasks[0].startDate || ''), // Use the first task's start date
+      endDate: this.convertToBackendDateFormat(selectedTasks[selectedTasks.length - 1].planned_end_date || ''), // Use the last task's end date
+      progress: this.calculateAverageProgress(selectedTasks), // Calculate average progress
+      tasks: selectedTasks.map(task => ({
+        idTask: task.idTask,
+        name: task.name,
+        description: task.description || '', // Ensure description is not null
+        startDate: this.convertToBackendDateFormat(task.startDate || ''),
+        planned_end_date: this.convertToBackendDateFormat(task.planned_end_date || ''),
+        actual_end_date: this.convertToBackendDateFormat(task.actual_end_date || ''), // Ensure actual_end_date is not null
+        status: task.status || 'PENDING' // Default to 'PENDING' if status is null
+>>>>>>> origin/lahmer
       }))
     };
   
@@ -279,6 +335,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
     return `${year}-${month}-${day}`;
   }
   
+<<<<<<< HEAD
+=======
+  // Calculate average progress for selected tasks
+>>>>>>> origin/lahmer
   private calculateAverageProgress(tasks: Task[]): number {
     if (tasks.length === 0) return 0;
     const totalProgress = tasks.reduce((sum, task) => sum + this.calculateProgress(task.status ?? 'PENDING'), 0);
@@ -292,8 +352,14 @@ export class TasksComponent implements OnInit, AfterViewInit {
       return;
     }
   
+<<<<<<< HEAD
     const swaggerCompatibleGanttData = {
       id: 0,
+=======
+    // Prepare the Gantt chart data in the Swagger-compatible format
+    const swaggerCompatibleGanttData = {
+      id: 0, // Set to 0 or omit if the backend generates the ID
+>>>>>>> origin/lahmer
       taskName: ganttData.taskName,
       startDate: ganttData.startDate,
       endDate: ganttData.endDate,
@@ -301,6 +367,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
       tasks: ganttData.tasks.map((task: { idTask: any; name: any; description: any; startDate: any; planned_end_date: any; actual_end_date: any; status: any; }) => ({
         idTask: task.idTask,
         name: task.name,
+<<<<<<< HEAD
         description: task.description || '', 
         startDate: task.startDate,
         planned_end_date: task.planned_end_date,
@@ -315,21 +382,51 @@ export class TasksComponent implements OnInit, AfterViewInit {
       body: swaggerCompatibleGanttData 
     };
   
+=======
+        description: task.description || '', // Ensure description is not null
+        startDate: task.startDate,
+        planned_end_date: task.planned_end_date,
+        actual_end_date: task.actual_end_date || null, // Ensure actual_end_date is not null
+        status: task.status || 'PENDING' // Default to 'PENDING' if status is null
+      }))
+    };
+  
+    // Log the Gantt chart data being sent
+    console.log('Gantt Data to be saved:', JSON.stringify(swaggerCompatibleGanttData, null, 2)); // Pretty-print the payload
+  
+    const saveParams: SaveGanttChart$Params = {
+      body: swaggerCompatibleGanttData // Pass the Gantt chart data as the request body
+    };
+  
+    // Log the saveParams object
+>>>>>>> origin/lahmer
     console.log('Save Params:', JSON.stringify(saveParams, null, 2));
   
     this.ganttChartService.saveGanttChart(saveParams).subscribe({
       next: (response) => {
+<<<<<<< HEAD
         console.log('Gantt chart saved successfully:', JSON.stringify(response, null, 2)); 
+=======
+        console.log('Gantt chart saved successfully:', JSON.stringify(response, null, 2)); // Pretty-print the response
+>>>>>>> origin/lahmer
         alert('Gantt chart saved successfully!');
       },
       error: (error) => {
         console.error('Error saving Gantt chart:', error);
+<<<<<<< HEAD
         console.error('Full error response:', JSON.stringify(error, null, 2)); 
+=======
+        console.error('Full error response:', JSON.stringify(error, null, 2)); // Pretty-print the error
+>>>>>>> origin/lahmer
         alert('Failed to save Gantt chart. Check the console for details.');
       }
     });
   }
 
+<<<<<<< HEAD
+=======
+  // Convert date to Gantt chart format (DD-MM-YYYY)
+>>>>>>> origin/lahmer
   private convertToGanttDateFormat(date: string): string {
     if (!date) return '';
     const parsedDate = new Date(date);
@@ -348,10 +445,15 @@ export class TasksComponent implements OnInit, AfterViewInit {
     return `${day}-${month}-${year}`;
   }
 
+<<<<<<< HEAD
+=======
+  // Calculate duration between two dates in days
+>>>>>>> origin/lahmer
   private calculateDuration(startDate: string, endDate: string): number {
     if (!startDate || !endDate) return 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
+<<<<<<< HEAD
     return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); 
   }
 
@@ -361,6 +463,19 @@ export class TasksComponent implements OnInit, AfterViewInit {
     return 0; 
   }
 
+=======
+    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); // Duration in days
+  }
+
+  // Calculate progress based on task status
+  private calculateProgress(status: string): number {
+    if (status === 'COMPLETED') return 1; // 100% progress
+    if (status === 'IN_PROGRESS') return 0.5; // 50% progress
+    return 0; // 0% progress
+  }
+
+  // Delete a task
+>>>>>>> origin/lahmer
   deleteTask(taskId: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
       const originalTasks = [...this.tasks];
@@ -373,6 +488,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
         },
         (error) => {
           console.error(`Error deleting task ${taskId}:`, error);
+<<<<<<< HEAD
+=======
+          // Rollback if the delete request fails
+>>>>>>> origin/lahmer
           this.tasks = originalTasks;
           this.filteredTasks = originalTasks;
           alert('Failed to delete the task. Please try again.');
@@ -381,6 +500,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // Filter tasks based on search query
+>>>>>>> origin/lahmer
   filterTasks(): void {
     if (!this.searchQuery) {
       this.filteredTasks = this.tasks;
@@ -392,6 +515,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // Navigate to the edit task page
+>>>>>>> origin/lahmer
   editTask(task: Task): void {
     this.router.navigate(['/update-task', task.idTask]);
   }
@@ -399,5 +526,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
   addTask(): void{
     this.router.navigate(['/addtask'])
   }
+<<<<<<< HEAD
  
+=======
+>>>>>>> origin/lahmer
 }

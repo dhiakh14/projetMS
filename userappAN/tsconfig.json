@@ -14,12 +14,19 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+<<<<<<< HEAD
     "moduleResolution": "bundler",
+=======
+    "moduleResolution": "node",
+>>>>>>> origin/lahmer
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+<<<<<<< HEAD
     "jsx": "react-jsx",
+=======
+>>>>>>> origin/lahmer
     "lib": [
       "ES2022",
       "dom"
@@ -31,4 +38,8 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/lahmer

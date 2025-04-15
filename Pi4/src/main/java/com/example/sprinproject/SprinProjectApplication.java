@@ -2,7 +2,10 @@ package com.example.sprinproject;
 
 import com.example.sprinproject.role.Role;
 import com.example.sprinproject.role.RoleRepository;
+<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
+=======
+>>>>>>> origin/lahmer
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,15 +20,22 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaAuditing
 @EnableAsync
 @EnableDiscoveryClient
+<<<<<<< HEAD
 @RequiredArgsConstructor
 public class SprinProjectApplication  {
 
+=======
+public class SprinProjectApplication {
+>>>>>>> origin/lahmer
 
     public static void main(String[] args) {
         SpringApplication.run(SprinProjectApplication.class, args);
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/lahmer
     }
     @Bean
     public CommandLineRunner runner(RoleRepository rolerepo){
@@ -43,5 +53,8 @@ public class SprinProjectApplication  {
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/lahmer
 }

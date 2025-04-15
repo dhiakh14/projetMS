@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+=======
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+>>>>>>> origin/lahmer
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -23,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
 import { ToastrModule } from 'ngx-toastr';
 import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
+<<<<<<< HEAD
 import { AboutComponent } from './pages/about/about.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgChartsModule } from 'ng2-charts';
@@ -37,6 +45,13 @@ export function kcFactory(keycloakService: KeycloakService) {
   return () => keycloakService.init();
 }
 
+=======
+import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-details.component';
+import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.component';
+import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FactureStatComponent } from './pages/aziz1/facture-stat/facture-stat.component';
+>>>>>>> origin/lahmer
 
 
 
@@ -62,16 +77,25 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     TaskDetailsComponent,
     GanttChartListComponent,
+<<<<<<< HEAD
     AboutComponent,
     DashboardComponent,
     ResetPasswordComponent,
     KeycloaksecurityComponent,
+=======
+    FactureListComponent,
+    FactureDetailsComponent,
+    FactureFormComponent,
+    FactureStatComponent
+
+>>>>>>> origin/lahmer
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+<<<<<<< HEAD
     ReactiveFormsModule,
     CodeInputModule,
     MatDialogModule,
@@ -79,6 +103,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     NgChartsModule,
     NgxPaginationModule,
+=======
+    CodeInputModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+>>>>>>> origin/lahmer
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -89,6 +118,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
+<<<<<<< HEAD
   providers: [
     {
       provide: APP_INITIALIZER,
@@ -98,5 +128,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     }
   ],
   bootstrap: [AppComponent],
+=======
+  providers: [],
+
+  bootstrap: [AppComponent]
+>>>>>>> origin/lahmer
 })
 export class AppModule { }

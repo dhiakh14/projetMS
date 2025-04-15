@@ -21,6 +21,10 @@
         @NotBlank(message = "LastName is mandatory")
         private String lastName;
 
+<<<<<<< HEAD
+=======
+        @NotNull(message = "Date of birth is mandatory")
+>>>>>>> origin/lahmer
         @Past(message = "Date of birth must be in the past")
         private LocalDate dateOfBirth;
         @Email(message = "Email is not well formatted")

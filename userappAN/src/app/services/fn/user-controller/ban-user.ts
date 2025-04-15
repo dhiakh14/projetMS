@@ -22,7 +22,11 @@ export function banUser(http: HttpClient, rootUrl: string, params: BanUser$Param
   }
 
   return http.request(
+<<<<<<< HEAD
     rb.build({ responseType: 'json', accept: 'application/json', context })
+=======
+    rb.build({ responseType: 'text', accept: 'application/json ', context })
+>>>>>>> origin/lahmer
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {

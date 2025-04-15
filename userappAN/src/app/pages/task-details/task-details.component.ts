@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskControllerService } from 'src/app/services1/services';
 import { Task } from 'src/app/services1/models';
+<<<<<<< HEAD
 import jsPDF from 'jspdf';
+=======
+>>>>>>> origin/lahmer
 
 @Component({
   selector: 'app-task-details',
@@ -47,13 +50,24 @@ export class TaskDetailsComponent implements OnInit {
 
   setActualEndDate(): void {
     if (this.task && !this.task.actual_end_date) {  
+<<<<<<< HEAD
       const currentDate = new Date().toISOString();  
       this.task.actual_end_date = currentDate;  
 
+=======
+      const currentDate = new Date().toISOString();  // Get the current date in ISO format
+      this.task.actual_end_date = currentDate;  // Set the actual end date to the current date
+
+      // Update task status to 'COMPLETED' if it's not already completed
+>>>>>>> origin/lahmer
       if (this.task.status !== 'COMPLETED') {
         this.task.status = 'COMPLETED';
       }
 
+<<<<<<< HEAD
+=======
+      // Ensure task id is not undefined before updating
+>>>>>>> origin/lahmer
       if (this.task.idTask !== undefined) {
         const updateParams = {
           idTask: this.task.idTask,
@@ -81,6 +95,7 @@ export class TaskDetailsComponent implements OnInit {
     const actualDate = this.task?.actual_end_date ? new Date(this.task.actual_end_date) : null;
 
     if (!actualDate) {
+<<<<<<< HEAD
       return ''; 
     }
 
@@ -90,6 +105,17 @@ export class TaskDetailsComponent implements OnInit {
       return 'early'; 
     } else {
       return 'on-time'; 
+=======
+      return ''; // No actual end date set, no class needed
+    }
+
+    if (plannedDate && actualDate > plannedDate) {
+      return 'late'; // Late
+    } else if (plannedDate && actualDate < plannedDate) {
+      return 'early'; // Early
+    } else {
+      return 'on-time'; // On Time
+>>>>>>> origin/lahmer
     }
   }
 
@@ -114,6 +140,7 @@ export class TaskDetailsComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     document.body.classList.toggle('dark-mode', this.isDarkMode);
   }
+<<<<<<< HEAD
 
   exportToPDF(): void {
     if (!this.task) {
@@ -217,4 +244,6 @@ export class TaskDetailsComponent implements OnInit {
   
   
   
+=======
+>>>>>>> origin/lahmer
 }

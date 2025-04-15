@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Prediction Button */
 .add-task-btn {
   background-color: #4CAF50; /* Green */
@@ -126,6 +127,8 @@
   font-size: 14px;
   color: #333;
 }
+=======
+>>>>>>> origin/lahmer
 /* ==================== */
 /* Global Styles        */
 /* ==================== */
@@ -138,6 +141,7 @@ body {
   transition: background-color 0.3s ease;
 }
 
+<<<<<<< HEAD
 .export-excel-btn {
   background-color: #4CAF50;
   color: white;
@@ -152,6 +156,8 @@ body {
   background-color: #45a049;
 }
 
+=======
+>>>>>>> origin/lahmer
 /* ==================== */
 /* Background Container */
 /* ==================== */
@@ -394,6 +400,7 @@ button:hover {
   pointer-events: none;
 }
 
+<<<<<<< HEAD
 .voice-search-btn {
   background-color: #007bff;
   color: white;
@@ -445,6 +452,8 @@ button:hover {
   background-color: #0056b3;
 }
 
+=======
+>>>>>>> origin/lahmer
 /* ==================== */
 /* Responsive Design    */
 /* ==================== */
@@ -472,9 +481,16 @@ button:hover {
   }
 
   .search-input {
+<<<<<<< HEAD
     width: 100%; 
     margin-right: 0;
     margin-bottom: 10px;
   }
 
+=======
+    width: 100%; /* Full width on mobile */
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+>>>>>>> origin/lahmer
 }

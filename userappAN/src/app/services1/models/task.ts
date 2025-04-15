@@ -5,6 +5,7 @@
 export interface Task {
   actual_end_date?: string;
   description?: string;
+<<<<<<< HEAD
   durationInDays?: number;
   idTask?: number;
   name?: string;
@@ -13,3 +14,11 @@ export interface Task {
   startDate?: string;
   status?: 'TO_DO' | 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
 }
+=======
+  idTask?: number;
+  name?: string;
+  planned_end_date?: string;
+  startDate?: string;
+  status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
+}
+>>>>>>> origin/lahmer

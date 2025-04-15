@@ -13,6 +13,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addTask } from '../fn/task-controller/add-task';
 import { AddTask$Params } from '../fn/task-controller/add-task';
+<<<<<<< HEAD
 import { addTasks } from '../fn/task-controller/add-tasks';
 import { AddTasks$Params } from '../fn/task-controller/add-tasks';
 import { deleteTask } from '../fn/task-controller/delete-task';
@@ -21,14 +22,21 @@ import { deleteTasksByProjectId } from '../fn/task-controller/delete-tasks-by-pr
 import { DeleteTasksByProjectId$Params } from '../fn/task-controller/delete-tasks-by-project-id';
 import { exportTasksToCsv } from '../fn/task-controller/export-tasks-to-csv';
 import { ExportTasksToCsv$Params } from '../fn/task-controller/export-tasks-to-csv';
+=======
+import { deleteTask } from '../fn/task-controller/delete-task';
+import { DeleteTask$Params } from '../fn/task-controller/delete-task';
+>>>>>>> origin/lahmer
 import { getAllTasks } from '../fn/task-controller/get-all-tasks';
 import { GetAllTasks$Params } from '../fn/task-controller/get-all-tasks';
 import { getTaskById } from '../fn/task-controller/get-task-by-id';
 import { GetTaskById$Params } from '../fn/task-controller/get-task-by-id';
+<<<<<<< HEAD
 import { getTasksByProjectId } from '../fn/task-controller/get-tasks-by-project-id';
 import { GetTasksByProjectId$Params } from '../fn/task-controller/get-tasks-by-project-id';
 import { predictDuration } from '../fn/task-controller/predict-duration';
 import { PredictDuration$Params } from '../fn/task-controller/predict-duration';
+=======
+>>>>>>> origin/lahmer
 import { Task } from '../models/task';
 import { updateTask } from '../fn/task-controller/update-task';
 import { UpdateTask$Params } from '../fn/task-controller/update-task';
@@ -64,6 +72,7 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+<<<<<<< HEAD
   /** Path part for operation `predictDuration()` */
   static readonly PredictDurationPath = '/Task/predictDuration';
 
@@ -122,6 +131,8 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+=======
+>>>>>>> origin/lahmer
   /** Path part for operation `addTask()` */
   static readonly AddTaskPath = '/Task/addTask';
 
@@ -147,6 +158,7 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+<<<<<<< HEAD
   /** Path part for operation `getTasksByProjectId()` */
   static readonly GetTasksByProjectIdPath = '/Task/getTasksByProject/{projectId}';
 
@@ -172,6 +184,8 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+=======
+>>>>>>> origin/lahmer
   /** Path part for operation `getTaskById()` */
   static readonly GetTaskByIdPath = '/Task/getTaskById/{id}';
 
@@ -222,6 +236,7 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+<<<<<<< HEAD
   /** Path part for operation `exportTasksToCsv()` */
   static readonly ExportTasksToCsvPath = '/Task/export';
 
@@ -272,6 +287,8 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+=======
+>>>>>>> origin/lahmer
   /** Path part for operation `deleteTask()` */
   static readonly DeleteTaskPath = '/Task/deleteTask/{id}';
 

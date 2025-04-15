@@ -2,11 +2,16 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/userappAN" vcs="Git" />
 =======
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Project" vcs="Git" />
 >>>>>>> origin/abir
+=======
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/userappAN" vcs="Git" />
+>>>>>>> origin/lahmer
   </component>
 </project>

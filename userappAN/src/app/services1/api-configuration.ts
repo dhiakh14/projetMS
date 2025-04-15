@@ -11,7 +11,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
+<<<<<<< HEAD
   rootUrl: string = 'http://localhost:8086/planning';
+=======
+  rootUrl: string = 'http://localhost:8085/planning';
+>>>>>>> origin/lahmer
 }
 
 /**

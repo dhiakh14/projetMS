@@ -50,7 +50,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+<<<<<<< HEAD
         jwt = authHeader.substring(7);
+=======
+        jwt = authHeader.substring(7);  // Extract JWT from "Bearer <token>"
+>>>>>>> origin/lahmer
         userEmail = jwtService.extractUsername(jwt);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {

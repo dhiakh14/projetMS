@@ -32,6 +32,7 @@
     return this.token !== null;
   }
 
+<<<<<<< HEAD
   getDateOfBirth(): string | null {
     const decoded = this.getDecodedToken();
     if (decoded?.dateOfBirth) {
@@ -44,6 +45,8 @@
     return null;
   }
 
+=======
+>>>>>>> origin/lahmer
   getUserRoles(): string[] {
     const decoded = this.getDecodedToken();
     console.log('Decoded Token:', decoded); 

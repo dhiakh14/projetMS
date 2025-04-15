@@ -2,6 +2,7 @@ package com.example.sprinproject.Service;
 
 import com.example.sprinproject.Entity.Task;
 import com.example.sprinproject.repository.TaskRepo;
+<<<<<<< HEAD
 import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -16,11 +17,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+>>>>>>> origin/lahmer
 
 @Service
 
 public class TaskService {
 
+<<<<<<< HEAD
     private final RestTemplate restTemplate = new RestTemplate();
 
 
@@ -29,6 +37,11 @@ public class TaskService {
 
 
 
+=======
+    @Autowired
+    private TaskRepo taskRepo;
+
+>>>>>>> origin/lahmer
     public Task addTask(Task task){
         return taskRepo.save(task);
     }
@@ -59,6 +72,7 @@ public class TaskService {
         }).orElseThrow(() -> new RuntimeException("Task not found with ID: " + idTask));
     }
 
+<<<<<<< HEAD
     public String exportTasksToCsv() throws IOException {
         List<Task> tasks = taskRepo.findAll();
         String filePath = "tasks.csv";
@@ -130,4 +144,6 @@ public class TaskService {
 
 
 
+=======
+>>>>>>> origin/lahmer
 }

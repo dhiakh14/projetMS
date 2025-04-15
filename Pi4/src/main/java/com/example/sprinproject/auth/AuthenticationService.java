@@ -9,16 +9,22 @@ import com.example.sprinproject.user.Token;
 import com.example.sprinproject.user.TokenRepository;
 import com.example.sprinproject.user.User;
 import com.example.sprinproject.user.userRepository;
+<<<<<<< HEAD
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+=======
+>>>>>>> origin/lahmer
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+=======
+>>>>>>> origin/lahmer
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,12 +32,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+=======
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+>>>>>>> origin/lahmer
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +62,7 @@ public class AuthenticationService {
     private String activationUrl;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+<<<<<<< HEAD
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleClientId;
     @Value("${application.mailing.frontend.reset-password-url}")
@@ -111,6 +127,8 @@ public class AuthenticationService {
         }
         return sb.toString();
     }
+=======
+>>>>>>> origin/lahmer
 
 
 
@@ -203,6 +221,7 @@ public class AuthenticationService {
         tokenRepository.save(savedToken);
 
     }
+<<<<<<< HEAD
 
 
 
@@ -253,4 +272,6 @@ public class AuthenticationService {
         }
     }
 
+=======
+>>>>>>> origin/lahmer
 }

@@ -1,5 +1,8 @@
 package com.example.sprinproject.auth;
+<<<<<<< HEAD
 import com.example.sprinproject.user.Token;
+=======
+>>>>>>> origin/lahmer
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -8,10 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> origin/lahmer
 
 @RestController
 @RequestMapping("/auth")
@@ -30,6 +37,7 @@ public class AuthenticationController {
         return ResponseEntity.accepted().build();
 
     }
+<<<<<<< HEAD
     @PostMapping("/google")
     public ResponseEntity<AuthenficationResponse> authenticateWithGoogle(
             @RequestParam String  googleToken
@@ -38,6 +46,8 @@ public class AuthenticationController {
     }
 
 
+=======
+>>>>>>> origin/lahmer
     @PostMapping("/authenticate")
     private ResponseEntity<AuthenficationResponse> authenticate(
             @RequestBody @Valid AuthenficationRequest request
@@ -50,6 +60,7 @@ public class AuthenticationController {
     ) throws MessagingException {
         authService.activateaccount(token);
     }
+<<<<<<< HEAD
 
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestParam String email) throws MessagingException {
@@ -72,4 +83,6 @@ public class AuthenticationController {
                     .body(Map.of("message", e.getMessage()));
         }
     }
+=======
+>>>>>>> origin/lahmer
 }

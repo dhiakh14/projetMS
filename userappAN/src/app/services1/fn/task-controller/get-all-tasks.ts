@@ -19,7 +19,11 @@ export function getAllTasks(http: HttpClient, rootUrl: string, params?: GetAllTa
   }
 
   return http.request(
+<<<<<<< HEAD
     rb.build({ responseType: 'json', accept: '*/*', context })
+=======
+    rb.build({ responseType: 'blob', accept: '*/*', context })
+>>>>>>> origin/lahmer
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {

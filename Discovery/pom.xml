@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 <<<<<<< HEAD
+<<<<<<< HEAD
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 =======
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 >>>>>>> origin/abir
+=======
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+>>>>>>> origin/lahmer
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -30,6 +34,7 @@
 		<tag/>
 		<url/>
 	</scm>
+<<<<<<< HEAD
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.5</spring-cloud.version>
@@ -39,6 +44,14 @@
 =======
 >>>>>>> origin/abir
 	</properties>
+=======
+    <properties>
+        <java.version>17</java.version>
+        <spring-cloud.version>2023.0.5</spring-cloud.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+>>>>>>> origin/lahmer
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,6 +66,9 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/lahmer
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -62,10 +78,13 @@
             <artifactId>spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
 =======
 
 
 >>>>>>> origin/abir
+=======
+>>>>>>> origin/lahmer
     </dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -88,7 +107,10 @@
 		</plugins>
 	</build>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> origin/abir
+=======
+>>>>>>> origin/lahmer
 </project>

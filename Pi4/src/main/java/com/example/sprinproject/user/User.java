@@ -10,7 +10,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+<<<<<<< HEAD
 import javax.annotation.Nullable;
+=======
+>>>>>>> origin/lahmer
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,7 +39,10 @@ public class  User implements UserDetails, Principal {
     private Long idUser;
     private String firstName;
     private String lastName;
+<<<<<<< HEAD
     @Column(nullable = true)
+=======
+>>>>>>> origin/lahmer
     private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;

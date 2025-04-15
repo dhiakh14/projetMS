@@ -2,6 +2,7 @@ package com.example.sprinproject.Controller;
 
 import com.example.sprinproject.Entity.Task;
 import com.example.sprinproject.Service.TaskService;
+<<<<<<< HEAD
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+>>>>>>> origin/lahmer
 
 @RestController
 @RequestMapping("/Task")
@@ -47,6 +54,7 @@ public class TaskController {
         taskService.deleteTask(id);
     }
 
+<<<<<<< HEAD
     @GetMapping("/export")
     public String exportTasksToCsv() {
         try {
@@ -92,6 +100,8 @@ public class TaskController {
 
 
 
+=======
+>>>>>>> origin/lahmer
 
 
 

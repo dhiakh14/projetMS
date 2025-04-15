@@ -183,3 +183,8 @@ export class GanttChartControllerService extends BaseService {
   }
 
 }
+<<<<<<< HEAD
+=======
+
+export { SaveGanttChart$Params };
+>>>>>>> origin/lahmer

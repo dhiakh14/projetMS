@@ -14,6 +14,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { AuthenficationResponse } from '../models/authenfication-response';
 import { authenticate } from '../fn/authentication/authenticate';
 import { Authenticate$Params } from '../fn/authentication/authenticate';
+<<<<<<< HEAD
 import { authenticateWithGoogle } from '../fn/authentication/authenticate-with-google';
 import { AuthenticateWithGoogle$Params } from '../fn/authentication/authenticate-with-google';
 import { confirm } from '../fn/authentication/confirm';
@@ -24,6 +25,12 @@ import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
 import { resetPassword } from '../fn/authentication/reset-password';
 import { ResetPassword$Params } from '../fn/authentication/reset-password';
+=======
+import { confirm } from '../fn/authentication/confirm';
+import { Confirm$Params } from '../fn/authentication/confirm';
+import { register } from '../fn/authentication/register';
+import { Register$Params } from '../fn/authentication/register';
+>>>>>>> origin/lahmer
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
@@ -31,6 +38,7 @@ export class AuthenticationService extends BaseService {
     super(config, http);
   }
 
+<<<<<<< HEAD
   /** Path part for operation `resetPassword()` */
   static readonly ResetPasswordPath = '/auth/reset-password';
 
@@ -114,6 +122,8 @@ export class AuthenticationService extends BaseService {
     );
   }
 
+=======
+>>>>>>> origin/lahmer
   /** Path part for operation `authenticate()` */
   static readonly AuthenticatePath = '/auth/authenticate';
 
