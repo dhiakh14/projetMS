@@ -1,6 +1,7 @@
 package com.esprit.microservices.livrablems;
 
 import com.esprit.microservices.livrablems.dto.ProjectStats;
+import com.esprit.microservices.livrablems.dto.StatusStatsDTO;
 import com.esprit.microservices.livrablems.entities.Livrable;
 import com.esprit.microservices.livrablems.entities.Status;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -13,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.ByteArrayOutputStream;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class LivrableService {
@@ -262,6 +261,32 @@ public class LivrableService {
         document.close();
 
         return outputStream;
+    }
+
+    public StatusStatsDTO getStatusStats(String projectName) {
+        List<Object[]> results = livrableRepository.countLivrablesByStatus(projectName);
+        Map<String, Long> statusCounts = new HashMap<>();
+
+        for (Object[] row : results) {
+            Status status = (Status) row[0];
+            Long count = (Long) row[1];
+            statusCounts.put(status.name(), count);
+        }
+
+        return new StatusStatsDTO(projectName, statusCounts);
+    }
+
+
+    public Livrable updateStatus(Long id, Status status) {
+        // Trouver le livrable par ID
+        Livrable livrable = livrableRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Livrable not found with id: " + id));
+
+        // Modifier le statut
+        livrable.setStatus(status);
+
+        // Sauvegarder et retourner le livrable mis à jour
+        return livrableRepository.save(livrable);
     }
 
 }

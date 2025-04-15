@@ -1,8 +1,10 @@
 package com.esprit.microservices.livrablems;
 
 import com.esprit.microservices.livrablems.dto.ProjectStats;
+import com.esprit.microservices.livrablems.dto.StatusStatsDTO;
 import com.esprit.microservices.livrablems.entities.Livrable;
 import com.esprit.microservices.livrablems.entities.Status;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/livrables")
@@ -27,8 +31,9 @@ public class LivrableRestApi {
     public ResponseEntity<Livrable> addLiv(@RequestBody Livrable livrable) {
         return ResponseEntity.ok(livrableService.createLivrable(livrable));
     }
+
     //get
-    @GetMapping("")
+    @GetMapping("/all")
     public List<Livrable> getAllLivrables() {
         return livrableService.getAllLivrables();
     }
@@ -41,6 +46,7 @@ public class LivrableRestApi {
         Livrable updated = livrableService.updateLivrable(livrableId, updatedLivrable);
         return ResponseEntity.ok(updated);
     }
+
     //delete
     @DeleteMapping("/delete/{idLivrable}")
     public void deleteLivrable(@PathVariable Long idLivrable) {
@@ -57,6 +63,7 @@ public class LivrableRestApi {
     public ResponseEntity<Long> getTotalLivrables() {
         return ResponseEntity.ok(livrableService.getTotalLivrables());
     }
+
     @GetMapping("/count/completed")
     public ResponseEntity<Long> getCompletedLivrables() {
         return ResponseEntity.ok(livrableService.getCompletedLivrables());
@@ -117,10 +124,19 @@ public class LivrableRestApi {
         }
     }
 
+    @GetMapping("/stats/statuses/{projectName}")
+    public StatusStatsDTO getStatusStats(@PathVariable String projectName) {
+        return livrableService.getStatusStats(projectName);
+    }
 
 
-
-
+    // Mettre à jour uniquement le statut
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Livrable> updateStatus(@PathVariable Long id, @RequestBody Livrable livrable) {
+        // Updating status based on the ID and new status from request body
+        Livrable updatedLivrable = livrableService.updateStatus(id, livrable.getStatus());
+        return ResponseEntity.ok(updatedLivrable);
+    }
 
 
 

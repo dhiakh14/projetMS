@@ -44,8 +44,10 @@ public interface LivrableRepository extends JpaRepository<Livrable, Long> {
 
     List<Livrable> findByProjectName(String projectName);
 
-    @Query("SELECT l FROM Livrable l WHERE l.dueDate <= :threeDaysLater")
-    List<Livrable> findLivrablesNearDueDate(@Param("threeDaysLater") Date threeDaysLater);
+
+    @Query("SELECT l.status, COUNT(l) FROM Livrable l WHERE l.projectName = :projectName GROUP BY l.status")
+    List<Object[]> countLivrablesByStatus(@Param("projectName") String projectName);
+
 
 }
 
