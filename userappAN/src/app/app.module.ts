@@ -27,6 +27,7 @@ import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-d
 import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.component';
 import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FactureStatComponent } from './pages/aziz1/facture-stat/facture-stat.component';
 
 
 
@@ -54,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GanttChartListComponent,
     FactureListComponent,
     FactureDetailsComponent,
-    FactureFormComponent
+    FactureFormComponent,
+    FactureStatComponent
 
   ],
   imports: [

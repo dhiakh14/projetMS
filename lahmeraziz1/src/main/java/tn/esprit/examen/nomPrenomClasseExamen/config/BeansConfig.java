@@ -42,7 +42,7 @@ public class BeansConfig {
                 HttpHeaders.AUTHORIZATION,
                 "X-Get-Header"
         ));
-        config.setMaxAge(3600L); 
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
