@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { UserControllerService } from './services/user-controller.service';
+import { RoleControllerService } from './services/role-controller.service';
+import { AuthenticationService } from './services/authentication.service';
 
 /**
  * Module that provides all services and configuration.
@@ -17,6 +19,8 @@ import { UserControllerService } from './services/user-controller.service';
   declarations: [],
   providers: [
     UserControllerService,
+    RoleControllerService,
+    AuthenticationService,
     ApiConfiguration
   ],
 })

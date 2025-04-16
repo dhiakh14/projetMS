@@ -1,14 +1,7 @@
 package com.example.sprinproject.config;
 
-import feign.Logger;
-import feign.Request;
-import feign.Retryer;
 import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.OAuth2Constants;
-import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.KeycloakBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -31,62 +24,50 @@ import java.util.Collections;
 
 public class BeansConfig {
 
-    @Value("${keycloak-admin.client-id}")
-    private String adminClientId;
+    public final UserDetailsService userDetailsService;
 
-    @Value("${keyclaok-admin.client-secret}")
-    private String adminClientSecret;
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
 
-    @Value("${keycloak.urls.auth}")
-    private String authServerUrl;
+    @Bean
 
-    @Value("${keycloak.realm}")
-    private String realm;
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+
+    }
 
     @Bean
     public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList(
-                "http://localhost:4200",
-                "http://localhost:8085"
-        ));
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
                 HttpHeaders.ACCEPT,
-                HttpHeaders.AUTHORIZATION,
-                "X-Requested-With"
+                HttpHeaders.AUTHORIZATION
         ));
         config.setAllowedMethods(Arrays.asList(
-                "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
+                "GET",
+                "POST",
+                "DELETE",
+                "PUT",
+                "PATCH"
         ));
-        config.setExposedHeaders(Arrays.asList(
-                HttpHeaders.AUTHORIZATION,
-                "X-Get-Header"
-        ));
-        config.setMaxAge(3600L);  // 1 hour cache
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+        return new org.springframework.web.filter.CorsFilter(source);
     }
-
-    @Bean
-    public Keycloak keycloak(){
-
-
-        return KeycloakBuilder.builder()
-                .serverUrl(authServerUrl)
-                .realm(realm)
-                .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-                .clientId(adminClientId)
-                .clientSecret(adminClientSecret)
-                .build();
-    }
-
-
 
 
 }

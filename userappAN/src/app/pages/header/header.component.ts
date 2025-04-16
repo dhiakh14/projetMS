@@ -15,7 +15,8 @@ export class HeaderComponent {
     ) {}
   
 
-  async logout() {
+  logout() {
+    this.tokenService.clearToken();
     this.router.navigate(['/login']);
   } 
 

@@ -6,18 +6,13 @@
     providedIn: 'root'
   })
   export class TokenService {
-    private readonly TOKEN_KEY = 'auth_token';
+    private readonly tokenKey = 'token';
 
-  get token(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+  set token(token : string){
+    localStorage.setItem('token', token);
   }
-
-  set token(token: string | null) {
-    if (token) {
-      localStorage.setItem(this.TOKEN_KEY, token);
-    } else {
-      localStorage.removeItem(this.TOKEN_KEY);
-    }
+  get token(){
+    return localStorage.getItem('token') as string;
   }
   getDecodedToken(): any {
     const token = this.token;
@@ -37,7 +32,17 @@
     return this.token !== null;
   }
 
- 
+  getDateOfBirth(): string | null {
+    const decoded = this.getDecodedToken();
+    if (decoded?.dateOfBirth) {
+      if (typeof decoded.dateOfBirth === 'string') {
+        return decoded.dateOfBirth;
+      } else if (decoded.dateOfBirth instanceof Date) {
+        return decoded.dateOfBirth.toISOString().split('T')[0];
+      }
+    }
+    return null;
+  }
 
   getUserRoles(): string[] {
     const decoded = this.getDecodedToken();
@@ -52,7 +57,7 @@
   
   
   clearToken(): void {
-    localStorage.removeItem(this.TOKEN_KEY); 
+    localStorage.removeItem(this.tokenKey); 
   }
   
   }

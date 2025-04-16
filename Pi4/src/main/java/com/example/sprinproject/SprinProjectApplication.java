@@ -1,11 +1,11 @@
 package com.example.sprinproject;
 
-
+import com.example.sprinproject.role.Role;
+import com.example.sprinproject.role.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaAuditing
 @EnableAsync
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.example.sprinproject.feign")
 public class SprinProjectApplication {
 
     public static void main(String[] args) {
@@ -24,7 +23,7 @@ public class SprinProjectApplication {
 
 
     }
-    /*@Bean
+    @Bean
     public CommandLineRunner runner(RoleRepository rolerepo){
         return args -> {
             if (rolerepo.findByName("USER").isEmpty()){
@@ -37,7 +36,7 @@ public class SprinProjectApplication {
                 rolerepo.save(Role.builder().name("ADMIN").build());
             }
         };
-    }*/
+    }
 
 
 }

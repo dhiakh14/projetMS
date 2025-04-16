@@ -11,28 +11,17 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { createUser } from '../fn/user-controller/create-user';
-import { CreateUser$Params } from '../fn/user-controller/create-user';
-import { deleteUser } from '../fn/user-controller/delete-user';
-import { DeleteUser$Params } from '../fn/user-controller/delete-user';
-import { forgotpassword } from '../fn/user-controller/forgotpassword';
-import { Forgotpassword$Params } from '../fn/user-controller/forgotpassword';
-import { getAllUsersExceptCurrent } from '../fn/user-controller/get-all-users-except-current';
-import { GetAllUsersExceptCurrent$Params } from '../fn/user-controller/get-all-users-except-current';
-import { getCurrentUser } from '../fn/user-controller/get-current-user';
-import { GetCurrentUser$Params } from '../fn/user-controller/get-current-user';
-import { getUserIdByUsername } from '../fn/user-controller/get-user-id-by-username';
-import { GetUserIdByUsername$Params } from '../fn/user-controller/get-user-id-by-username';
-import { getUserRoles } from '../fn/user-controller/get-user-roles';
-import { GetUserRoles$Params } from '../fn/user-controller/get-user-roles';
-import { login } from '../fn/user-controller/login';
-import { Login$Params } from '../fn/user-controller/login';
-import { RegistrationRequest } from '../models/registration-request';
-import { sendVerificationEmail } from '../fn/user-controller/send-verification-email';
-import { SendVerificationEmail$Params } from '../fn/user-controller/send-verification-email';
-import { updateUser } from '../fn/user-controller/update-user';
-import { UpdateUser$Params } from '../fn/user-controller/update-user';
-import { UserRepresentation } from '../models/user-representation';
+import { assignAndReplaceRoleToUser } from '../fn/user-controller/assign-and-replace-role-to-user';
+import { AssignAndReplaceRoleToUser$Params } from '../fn/user-controller/assign-and-replace-role-to-user';
+import { assignRoleToUser } from '../fn/user-controller/assign-role-to-user';
+import { AssignRoleToUser$Params } from '../fn/user-controller/assign-role-to-user';
+import { banUser } from '../fn/user-controller/ban-user';
+import { BanUser$Params } from '../fn/user-controller/ban-user';
+import { getAllUsersExceptMe } from '../fn/user-controller/get-all-users-except-me';
+import { GetAllUsersExceptMe$Params } from '../fn/user-controller/get-all-users-except-me';
+import { getProfile } from '../fn/user-controller/get-profile';
+import { GetProfile$Params } from '../fn/user-controller/get-profile';
+import { User } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserControllerService extends BaseService {
@@ -40,257 +29,128 @@ export class UserControllerService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `sendVerificationEmail()` */
-  static readonly SendVerificationEmailPath = '/users/{userId}/send-verify-email';
+  /** Path part for operation `banUser()` */
+  static readonly BanUserPath = '/users/{idUser}/ban';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `sendVerificationEmail()` instead.
+   * To access only the response body, use `banUser()` instead.
    *
    * This method doesn't expect any request body.
    */
-  sendVerificationEmail$Response(params: SendVerificationEmail$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return sendVerificationEmail(this.http, this.rootUrl, params, context);
+  banUser$Response(params: BanUser$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return banUser(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `sendVerificationEmail$Response()` instead.
+   * To access the full response (for headers, for example), `banUser$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  sendVerificationEmail(params: SendVerificationEmail$Params, context?: HttpContext): Observable<void> {
-    return this.sendVerificationEmail$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `updateUser()` */
-  static readonly UpdateUserPath = '/users/users/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `updateUser()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  updateUser$Response(params: UpdateUser$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return updateUser(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `updateUser$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  updateUser(params: UpdateUser$Params, context?: HttpContext): Observable<void> {
-    return this.updateUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `forgotpassword()` */
-  static readonly ForgotpasswordPath = '/users/forgot-password/{username}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `forgotpassword()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  forgotpassword$Response(params: Forgotpassword$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return forgotpassword(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `forgotpassword$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  forgotpassword(params: Forgotpassword$Params, context?: HttpContext): Observable<void> {
-    return this.forgotpassword$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `login()` */
-  static readonly LoginPath = '/users/login';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `login()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
-    return login(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `login$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  login(params: Login$Params, context?: HttpContext): Observable<{
-}> {
-    return this.login$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `createUser()` */
-  static readonly CreateUserPath = '/users/createuser';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `createUser()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  createUser$Response(params: CreateUser$Params, context?: HttpContext): Observable<StrictHttpResponse<RegistrationRequest>> {
-    return createUser(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `createUser$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  createUser(params: CreateUser$Params, context?: HttpContext): Observable<RegistrationRequest> {
-    return this.createUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<RegistrationRequest>): RegistrationRequest => r.body)
-    );
-  }
-
-  /** Path part for operation `getUserRoles()` */
-  static readonly GetUserRolesPath = '/users/{userId}/roles';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getUserRoles()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUserRoles$Response(params: GetUserRoles$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<string>>> {
-    return getUserRoles(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getUserRoles$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUserRoles(params: GetUserRoles$Params, context?: HttpContext): Observable<Array<string>> {
-    return this.getUserRoles$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<string>>): Array<string> => r.body)
-    );
-  }
-
-  /** Path part for operation `getAllUsersExceptCurrent()` */
-  static readonly GetAllUsersExceptCurrentPath = '/users/others';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getAllUsersExceptCurrent()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getAllUsersExceptCurrent$Response(params?: GetAllUsersExceptCurrent$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserRepresentation>>> {
-    return getAllUsersExceptCurrent(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getAllUsersExceptCurrent$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getAllUsersExceptCurrent(params?: GetAllUsersExceptCurrent$Params, context?: HttpContext): Observable<Array<UserRepresentation>> {
-    return this.getAllUsersExceptCurrent$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<UserRepresentation>>): Array<UserRepresentation> => r.body)
-    );
-  }
-
-  /** Path part for operation `getCurrentUser()` */
-  static readonly GetCurrentUserPath = '/users/me';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getCurrentUser()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getCurrentUser$Response(params?: GetCurrentUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserRepresentation>> {
-    return getCurrentUser(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getCurrentUser$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getCurrentUser(params?: GetCurrentUser$Params, context?: HttpContext): Observable<UserRepresentation> {
-    return this.getCurrentUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<UserRepresentation>): UserRepresentation => r.body)
-    );
-  }
-
-  /** Path part for operation `getUserIdByUsername()` */
-  static readonly GetUserIdByUsernamePath = '/users/find/{username}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getUserIdByUsername()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUserIdByUsername$Response(params: GetUserIdByUsername$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return getUserIdByUsername(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getUserIdByUsername$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUserIdByUsername(params: GetUserIdByUsername$Params, context?: HttpContext): Observable<string> {
-    return this.getUserIdByUsername$Response(params, context).pipe(
+  banUser(params: BanUser$Params, context?: HttpContext): Observable<string> {
+    return this.banUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `deleteUser()` */
-  static readonly DeleteUserPath = '/users/deleteuser/{userId}';
+  /** Path part for operation `assignAndReplaceRoleToUser()` */
+  static readonly AssignAndReplaceRoleToUserPath = '/users/{idUser}/assignAndReplaceRoleToUser';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `deleteUser()` instead.
+   * To access only the response body, use `assignAndReplaceRoleToUser()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteUser$Response(params: DeleteUser$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return deleteUser(this.http, this.rootUrl, params, context);
+  assignAndReplaceRoleToUser$Response(params: AssignAndReplaceRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return assignAndReplaceRoleToUser(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `deleteUser$Response()` instead.
+   * To access the full response (for headers, for example), `assignAndReplaceRoleToUser$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteUser(params: DeleteUser$Params, context?: HttpContext): Observable<void> {
-    return this.deleteUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  assignAndReplaceRoleToUser(params: AssignAndReplaceRoleToUser$Params, context?: HttpContext): Observable<string> {
+    return this.assignAndReplaceRoleToUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
+  }
+
+  /** Path part for operation `assignRoleToUser()` */
+  static readonly AssignRoleToUserPath = '/users/{idUser}/assign-role';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `assignRoleToUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignRoleToUser$Response(params: AssignRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return assignRoleToUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `assignRoleToUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignRoleToUser(params: AssignRoleToUser$Params, context?: HttpContext): Observable<string> {
+    return this.assignRoleToUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
+  }
+
+  /** Path part for operation `getProfile()` */
+  static readonly GetProfilePath = '/users/getUserById/{idUser}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getProfile()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProfile$Response(params: GetProfile$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
+    return getProfile(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getProfile$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProfile(params: GetProfile$Params, context?: HttpContext): Observable<User> {
+    return this.getProfile$Response(params, context).pipe(
+      map((r: StrictHttpResponse<User>): User => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllUsersExceptMe()` */
+  static readonly GetAllUsersExceptMePath = '/users/all-except-me';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllUsersExceptMe()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllUsersExceptMe$Response(params: GetAllUsersExceptMe$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<User>>> {
+    return getAllUsersExceptMe(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllUsersExceptMe$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllUsersExceptMe(params: GetAllUsersExceptMe$Params, context?: HttpContext): Observable<Array<User>> {
+    return this.getAllUsersExceptMe$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<User>>): Array<User> => r.body)
     );
   }
 

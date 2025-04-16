@@ -6,7 +6,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { RoleControllerService } from './services/role-controller.service';
+import { GanttChartControllerService } from './services/gantt-chart-controller.service';
+import { TaskControllerService } from './services/task-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -16,7 +17,8 @@ import { RoleControllerService } from './services/role-controller.service';
   exports: [],
   declarations: [],
   providers: [
-    RoleControllerService,
+    GanttChartControllerService,
+    TaskControllerService,
     ApiConfiguration
   ],
 })
