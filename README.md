@@ -1,101 +1,97 @@
-**Project Management Microservice**
+# 🏗️ Microservice - Gestion de Projets de Construction
 
-Description :
-Ce microservice gère les projets dans une plateforme de gestion. Il offre des fonctionnalités telles que l'ajout, la mise à jour, la suppression de projets, ainsi que des statistiques sur la durée des projets, leur progression et leur géolocalisation via une API externe.
+Ce microservice fait partie d'un système plus large de gestion de projets de construction. Il permet la création, gestion, suivi, prédiction de statut et géolocalisation des projets via des APIs RESTful.
 
-**Fonctionnalités**
-Gestion des projets :
+## 🚀 Fonctionnalités principales
 
-Ajouter un projet
-Mettre à jour un projet
-Supprimer un projet
-Récupérer tous les projets
-Récupérer un projet par son identifiant
+- 🔧 **CRUD** complet sur les projets
+- 📊 **Statistiques** :
+  - Nombre de projets par statut (`ON_GOING`, `COMPLETED`, `DELAYED`)
+  - Durée moyenne des projets
+- 🔮 **Prédiction du statut** via un modèle de Machine Learning externe (Flask)
+- 🌍 **Géolocalisation** des projets via l'API Nominatim (OpenStreetMap)
+- ⏳ Calcul des **jours restants** avant la fin d’un projet
+- 📈 Suivi du **progrès du projet**
 
-Statistiques :
-Récupérer des statistiques sur les projets par statut (en cours, terminé, retardé)
-Calculer la durée moyenne des projets (en mois et jours)
-Progrès des projets :
-Calculer la progression d'un projet selon son statut (50% pour en cours, 100% pour terminé, 25% pour retardé)
-Géolocalisation et jours restants :
-Utilisation de l'API Nominatim pour obtenir la latitude, la longitude et le nom de la ville associée à un projet
-Calcul des jours restants avant la fin du projet
+## 🧱 Stack Technique
 
-**Prérequis**
-Java 11 ou supérieur
-Spring Boot 2.x
-Maven
-Base de données relationnelle (ex. MySQL, PostgreSQL)
+- **Java 17**
+- **Spring Boot**
+- **REST API**
+- **JPA / Hibernate**
+- **PostgreSQL ou MySQL**
+- **Flask** (service externe pour la prédiction)
+- **OpenStreetMap Nominatim API** (pour la géolocalisation)
 
-**Installation**
-Clonez ce repository :
-git clone https://github.com/dhiakh14/projetMS.git
+## 📁 Structure du code
 
-Installez les dépendances avec Maven :
-mvn clean install
+### 📦 `ProjectService.java`
 
-Configurez la base de données dans le fichier application.properties ou application.yml selon vos préférences.
+Ce fichier contient la logique métier du microservice, avec notamment :
 
-Lancez l'application Spring Boot :
-mvn spring-boot:run
+#### CRUD :
+- `addProject(Project project)`
+- `updateProject(Long id, Project project)`
+- `deleteProject(Long id)`
+- `getAll()`
+- `findProjectById(Long id)`
 
-**API Endpoints**
-Ajouter un projet
-URL : /project Méthode : POST
+#### Statistiques :
+- `countProjectsByStatus(Status status)`
+- `getProjectsByStatus()`
+- `getAverageProjectDuration()`
 
-Corps de la requête :
+#### Avancée :
+- `getProjectProgress(Long id)`
+
+#### IA & Géolocalisation :
+- `predictStatus(Project project)`  
+Appelle un modèle Python hébergé sur `localhost:5000/predict_status`  
+- `getGeoAndRemainingInfo(Long id)`  
+Appelle l’API [Nominatim](https://nominatim.org/release-docs/develop/api/Search/) pour obtenir la latitude, la longitude et le nom de l’endroit du projet.
+
+## 📡 Exemple d'appel à l'API Flask (prédiction)
+
+```json
+POST http://localhost:5000/predict_status
+Content-Type: application/json
+
 {
-  "name": "Nom du projet",
-  "description": "Description du projet",
-  "startDate": "yyyy-MM-dd",
-  "endDate": "yyyy-MM-dd",
+  "name": "Projet A",
+  "description": "Construction d’un immeuble",
+  "startDate": "2023-01-01",
+  "endDate": "2024-01-01",
   "status": "ON_GOING"
 }
+```
 
-Mettre à jour un projet
-URL : /project/{id} Méthode : PUT
+Réponse :
+```json
+{
+  "predicted_status": "COMPLETED"
+}
+```
 
-Corps de la requête : Identique à l'ajout d'un projet
+## 🔐 Sécurité
 
-Supprimer un projet
-URL : /project/{id} Méthode : DELETE
+- Envisage d'ajouter **Spring Security** si le microservice est exposé à des utilisateurs externes.
+- Les appels aux services externes doivent idéalement être sécurisés et résilients (avec timeout, retry, etc.)
 
-Récupérer tous les projets
-URL : /project Méthode : GET
+## 📌 À faire
 
-Récupérer un projet par ID
-URL : /project/{id} Méthode : GET
+- ✅ Ajouter des tests unitaires et d’intégration
+- ✅ Externaliser les URL dans `application.properties`
+- 🔲 Ajouter la gestion des erreurs avec `@ControllerAdvice`
+- 🔲 Ajouter Swagger pour la documentation de l'API
 
-Durée moyenne des projets
-URL : /project/averageDuration Méthode : GET
+## 🧪 Test
 
-Statistiques des projets par statut
-URL : /project/statusStats Méthode : GET
+Lancement des tests :
+```bash
+./mvnw test
+```
 
-Progrès d'un projet
-URL : /project/progress/{id} Méthode : GET
+## 👨‍💻 Auteur
 
-Informations géographiques et jours restants
-URL : /project/geoAndRemaining/{id} Méthode : GET
-
-**Tests**
-Lancer l'application et vérifier que tous les endpoints sont accessibles via Postman ou un autre client HTTP.
-
-Exécuter les tests unitaires :
-mvn test
-
-**Contribuer**
-Fork ce repository
-Créez une branche (git checkout -b feature/nouvelle-fonctionnalite)
-Faites vos changements
-Committez vos modifications (git commit -am 'Ajout de fonctionnalité')
-Push vers la branche (git push origin feature/nouvelle-fonctionnalite)
-Ouvrez une Pull Request
-
-**Auteurs**
-Bahraoui Abir - Développeur principal - (https://github.com/Abirbahraoui)
-
-Collaborateurs - Collaborateurs du projet
-
-**License**
-Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
+- 🧑‍💻 Projet développé par Abir et l'équipe du module MSA (Microservices Architecture)
+- 📅 Avril 2025
