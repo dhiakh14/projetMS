@@ -13,6 +13,14 @@
         <module name="GestioPlanning" />
         <module name="Discovery" />
         <module name="KhalfaouiMohamedDhia" />
+      </profile>
+      <profile name="Annotation profile for ProjectMG" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
         <module name="ProjectMG" />
       </profile>
     </annotationProcessing>
@@ -31,9 +39,9 @@
       <module name="Discovery" options="-parameters" />
       <module name="Gateway" options="-parameters" />
       <module name="GestioPlanning" options="-parameters" />
-      <module name="GestionLivrables" options="" />
+      <module name="GestionLivrables" options="-parameters" />
       <module name="KhalfaouiMohamedDhia" options="-parameters" />
-      <module name="ProjectMG" options="" />
+      <module name="ProjectMG" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="tachEtLivrable" options="-parameters" />
       <module name="tacheEtLivrable" options="-parameters" />

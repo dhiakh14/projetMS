@@ -3,6 +3,7 @@ package com.example.gestionlivrables.repositories;
 import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -23,5 +24,18 @@ public interface LivrableRepository extends JpaRepository<Livrable,Long> {
 
     List<Livrable> findByProjectName(String projectName);
 
-    int countByStatus(Status status);
+    long countByStatus(Status status);
+
+    @Query("SELECT COUNT(l) FROM Livrable l WHERE l.due_date < CURRENT_TIMESTAMP AND l.status NOT IN ('COMPLETED', 'APPROVED')")
+    long countLateLivrables();
+
+    @Query("SELECT l.status, COUNT(l) FROM Livrable l GROUP BY l.status")
+    List<Object[]> countByStatus();
+
+    @Query("SELECT FUNCTION('MONTH', l.createdAt), COUNT(l) FROM Livrable l GROUP BY FUNCTION('MONTH', l.createdAt)")
+    List<Object[]> countCreatedByMonth();
+
+    @Query("SELECT l.projectName, COUNT(l) FROM Livrable l GROUP BY l.projectName")
+    List<Object[]> countByProject();
 }
+

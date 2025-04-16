@@ -3,6 +3,7 @@ package com.example.gestionlivrables.services;
 import com.example.gestionlivrables.ProjectClient.ProjectClient;
 import com.example.gestionlivrables.ProjectClient.ProjectDTO;
 import com.example.gestionlivrables.dto.LivrableDTO;
+import com.example.gestionlivrables.dto.StatsDTO;
 import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.repositories.LivrableRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.Month;
 import java.util.*;
 
 @Service
@@ -252,6 +254,38 @@ public class LivrableService {
         dto.setIsCompleted(isCompleted);
         dto.setIsOverdue(isOverdue);
         dto.setDaysRemaining(daysRemaining); // Include days left for better tracking
+
+        return dto;
+    }
+
+    public StatsDTO getStats() {
+        StatsDTO dto = new StatsDTO();
+        dto.setTotal(livrableRepo.count());
+        dto.setLate(livrableRepo.countLateLivrables());
+
+        Map<String, Long> statusMap = new HashMap<>();
+        for (Object[] obj : livrableRepo.countByStatus()) {
+            statusMap.put(obj[0].toString(), (Long) obj[1]);
+        }
+        dto.setByStatus(statusMap);
+
+        Map<String, Long> monthMap = new HashMap<>();
+        for (Object[] obj : livrableRepo.countCreatedByMonth()) {
+            String month = Month.of((Integer) obj[0]).name();
+            monthMap.put(month, (Long) obj[1]);
+        }
+        dto.setByMonth(monthMap);
+
+        Map<String, Long> projectMap = new HashMap<>();
+        for (Object[] obj : livrableRepo.countByProject()) {
+            projectMap.put((String) obj[0], (Long) obj[1]);
+        }
+        dto.setByProject(projectMap);
+
+        List<Livrable> all = livrableRepo.findAll();
+        int completed = all.stream().mapToInt(Livrable::getCompleted_count).sum();
+        int total = all.stream().mapToInt(Livrable::getTotal_count).sum();
+        dto.setCompletionRate(total == 0 ? 0 : (double) completed / total * 100);
 
         return dto;
     }
