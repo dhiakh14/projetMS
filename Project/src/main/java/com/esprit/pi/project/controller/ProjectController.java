@@ -82,12 +82,6 @@ public class ProjectController {
         document.close();
     }
 
-    //Géolocalisation des projets
-    @GetMapping("/location/{idProject}")
-    public String getProjectLocation(@PathVariable Long idProject) {
-        return projectService.getProjectLocation(idProject);
-    }
-
     //Prédiction
     @PostMapping("/predict-status")
     public ResponseEntity<String> predictProjectStatus(@RequestBody Project project) {

@@ -25,8 +25,6 @@ import { getAverageDuration } from '../fn/project-controller/get-average-duratio
 import { GetAverageDuration$Params } from '../fn/project-controller/get-average-duration';
 import { getGeoAndRemaining } from '../fn/project-controller/get-geo-and-remaining';
 import { GetGeoAndRemaining$Params } from '../fn/project-controller/get-geo-and-remaining';
-import { getProjectLocation } from '../fn/project-controller/get-project-location';
-import { GetProjectLocation$Params } from '../fn/project-controller/get-project-location';
 import { getProjectProgress } from '../fn/project-controller/get-project-progress';
 import { GetProjectProgress$Params } from '../fn/project-controller/get-project-progress';
 import { getStatisticsByStatus } from '../fn/project-controller/get-statistics-by-status';
@@ -177,31 +175,6 @@ export class ProjectControllerService extends BaseService {
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
-    );
-  }
-
-  /** Path part for operation `getProjectLocation()` */
-  static readonly GetProjectLocationPath = '/project/location/{idProject}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getProjectLocation()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getProjectLocation$Response(params: GetProjectLocation$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return getProjectLocation(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getProjectLocation$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getProjectLocation(params: GetProjectLocation$Params, context?: HttpContext): Observable<string> {
-    return this.getProjectLocation$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

@@ -3,31 +3,59 @@
   <h2>Edit Project</h2>
 
   <div *ngIf="project">
-    <form (ngSubmit)="updateProject()">
+    <form (ngSubmit)="updateProject()" #form="ngForm">
       <div class="form-group">
-        <label for="name">Nom du Projet</label>
-        <input id="name" [(ngModel)]="project.name" name="name" type="text" placeholder="Nom du Projet">
+        <label for="name">Project name</label>
+        <input id="name" [(ngModel)]="project.name" name="name" type="text" placeholder="Project name" required>
       </div>
   
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" [(ngModel)]="project.description" name="description" placeholder="Description"></textarea>
+        <textarea id="description" [(ngModel)]="project.description" name="description" placeholder="Description" required></textarea>
       </div>
   
       <div class="form-group">
-        <label for="startDate">Date de Début</label>
-        <input id="startDate" [(ngModel)]="project.startDate" name="startDate" type="date">
+        <label for="startDate">Start date</label>
+        <input id="startDate" [(ngModel)]="project.startDate" name="startDate" type="date" required>
       </div>
   
       <div class="form-group">
-        <label for="endDate">Date de Fin</label>
-        <input id="endDate" [(ngModel)]="project.endDate" name="endDate" type="date">
+        <label for="endDate">End date</label>
+        <input id="endDate" [(ngModel)]="project.endDate" name="endDate" type="date" required>
       </div>
 
-      <button type="submit">Update Project</button>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input id="city" [(ngModel)]="project.city" name="city" type="text" placeholder="City">
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input id="location" [(ngModel)]="project.location" name="location" type="text" placeholder="Location">
+      </div>
+
+      <div class="form-group">
+        <label for="latitude">Latitude</label>
+        <input id="latitude" [(ngModel)]="project.latitude" name="latitude" type="text" placeholder="Latitude">
+      </div>
+
+      <div class="form-group">
+        <label for="longitude">Longitude</label>
+        <input id="longitude" [(ngModel)]="project.longitude" name="longitude" type="text" placeholder="Longitude">
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" [(ngModel)]="project.status" name="status">
+          <option value="ON_GOING">Ongoing</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="DELAYED">Delayed</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success">Update Project</button>
     </form>
 
-    <!-- Message d'erreur -->
     <div *ngIf="error" class="error">
       <p>{{ error }}</p>
     </div>
@@ -37,7 +65,6 @@
     <p>Loading project data...</p>
   </div>
 
-  <!-- Flèche retour avec l'icône Font Awesome -->
   <i class="fas fa-arrow-left go-back" (click)="goBack()"></i>
 </div>
 <br>

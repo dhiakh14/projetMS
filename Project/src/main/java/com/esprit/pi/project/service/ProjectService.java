@@ -73,18 +73,6 @@ public class ProjectService {
         return projectRepository.averageProjectDuration();
     }
 
-
-    //Géolocalisation des projets
-    public String getProjectLocation(Long idProject) {
-        List<Object[]> coordinates = projectRepository.findCoordinatesByIdProject(idProject);
-        if (coordinates.isEmpty()) {
-            throw new RuntimeException("Project coordinates not found");
-        }
-        Double latitude = (Double) coordinates.get(0)[0];
-        Double longitude = (Double) coordinates.get(0)[1];
-        return "https://www.google.com/maps?q=" + latitude + "," + longitude;
-    }
-
     //Prédiction
     public String predictStatus(Project project) {
         String url = "http://localhost:5000/predict_status";

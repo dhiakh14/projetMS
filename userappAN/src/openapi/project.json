@@ -167,37 +167,6 @@
         }
       }
     },
-    "/project/location/{idProject}": {
-      "get": {
-        "tags": [
-          "project-controller"
-        ],
-        "operationId": "getProjectLocation",
-        "parameters": [
-          {
-            "name": "idProject",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/project/getProjectsByStatus/{status}": {
       "get": {
         "tags": [

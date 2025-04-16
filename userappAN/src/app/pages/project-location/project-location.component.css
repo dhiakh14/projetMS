@@ -1,0 +1,44 @@
+.project-location {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+    margin: 2rem auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .project-location h2 {
+    color: #EC744A;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .project-location pre {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    border: 1px solid #ddd;
+  }
+  
+  .project-location p {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  .project-location .error {
+    color: #d9534f;
+    font-weight: bold;
+    background-color: #fbeaea;
+    border-left: 4px solid #d9534f;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+  

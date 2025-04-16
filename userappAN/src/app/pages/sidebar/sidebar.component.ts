@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
 
   isVisible = false; 
   isAdmin = false;  
+projectId: any|string;
 
   constructor(private tokenService: TokenService, private router: Router) {}
 

@@ -39,6 +39,8 @@ const routes: Routes = [
   { path: 'map', component: ProjectLocationComponent },
   { path: 'duration', component: ProjectDurationComponent },
   { path: 'predict', component: PredictionStatutComponent },
+  { path: 'project/location/:id', component: ProjectLocationComponent },
+
 
   {
     path: 'activate-account',

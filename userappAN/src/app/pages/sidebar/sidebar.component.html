@@ -17,7 +17,7 @@
       <ul class="submenu" [class.show]="isProjectMenuOpen">
         <li><a routerLink="/project">📄 Management</a></li>
         <li><a routerLink="/stats">📊 Stats</a></li>
-        <li><a routerLink="/map">🗺️ Map</a></li>
+        <li><a [routerLink]="['/project/location', projectId]">🗺️ Map</a></li>
         <li><a routerLink="/predict">🔮 Predict Status</a></li>
       </ul>
     </li>

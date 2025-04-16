@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-project.component.css']
 })
 export class AddProjectComponent {
-  project: Partial<Project> = {
+  project: Project = {
     status: 'ON_GOING'
   };
   formSubmitted: boolean = false;

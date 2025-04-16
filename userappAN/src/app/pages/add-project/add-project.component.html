@@ -7,28 +7,57 @@
       <input type="text" id="projectName" name="projectName" [(ngModel)]="project.name" required>
       <div *ngIf="!project.name && formSubmitted" class="error">Project name is required.</div>
     </div>
-  
+
     <div class="form-group">
       <label for="projectDescription">Description</label>
       <textarea id="projectDescription" name="projectDescription" [(ngModel)]="project.description" required></textarea>
       <div *ngIf="!project.description && formSubmitted" class="error">Description is required.</div>
     </div>
-  
+
     <div class="form-group">
       <label for="projectStartDate">Start date</label>
       <input type="date" id="projectStartDate" name="projectStartDate" [(ngModel)]="project.startDate" required>
       <div *ngIf="!project.startDate && formSubmitted" class="error">Start date is required.</div>
     </div>
-  
+
     <div class="form-group">
       <label for="projectEndDate">End date</label>
       <input type="date" id="projectEndDate" name="projectEndDate" [(ngModel)]="project.endDate" required>
       <div *ngIf="!project.endDate && formSubmitted" class="error">End date is required.</div>
     </div>
-  
+
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" [(ngModel)]="project.city">
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" [(ngModel)]="project.location">
+    </div>
+
+    <div class="form-group">
+      <label for="latitude">Latitude</label>
+      <input type="text" id="latitude" name="latitude" [(ngModel)]="project.latitude">
+    </div>
+
+    <div class="form-group">
+      <label for="longitude">Longitude</label>
+      <input type="text" id="longitude" name="longitude" [(ngModel)]="project.longitude">
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" name="status" [(ngModel)]="project.status">
+        <option value="ON_GOING">Ongoing</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="DELAYED">Delayed</option>
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Add project</button>
   </form>
-  
+
   <i class="fas fa-arrow-left go-back" (click)="goBack()"></i>
 </div>
 <br>
