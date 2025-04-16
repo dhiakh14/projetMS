@@ -3,7 +3,7 @@
 Description :
 Ce microservice gère les projets dans une plateforme de gestion. Il offre des fonctionnalités telles que l'ajout, la mise à jour, la suppression de projets, ainsi que des statistiques sur la durée des projets, leur progression et leur géolocalisation via une API externe.
 
-Fonctionnalités
+**Fonctionnalités**
 Gestion des projets :
 
 Ajouter un projet
@@ -21,16 +21,15 @@ Géolocalisation et jours restants :
 Utilisation de l'API Nominatim pour obtenir la latitude, la longitude et le nom de la ville associée à un projet
 Calcul des jours restants avant la fin du projet
 
-Prérequis
+**Prérequis**
 Java 11 ou supérieur
 Spring Boot 2.x
 Maven
 Base de données relationnelle (ex. MySQL, PostgreSQL)
 
-Installation
+**Installation**
 Clonez ce repository :
-git clone https://github.com/dhoakh14/projetMS.git
-
+git clone https://github.com/dhiakh14/projetMS.git
 
 Installez les dépendances avec Maven :
 mvn clean install
@@ -40,7 +39,7 @@ Configurez la base de données dans le fichier application.properties ou applica
 Lancez l'application Spring Boot :
 mvn spring-boot:run
 
-API Endpoints
+**API Endpoints**
 Ajouter un projet
 URL : /project Méthode : POST
 
@@ -79,13 +78,13 @@ URL : /project/progress/{id} Méthode : GET
 Informations géographiques et jours restants
 URL : /project/geoAndRemaining/{id} Méthode : GET
 
-Tests
+**Tests**
 Lancer l'application et vérifier que tous les endpoints sont accessibles via Postman ou un autre client HTTP.
 
 Exécuter les tests unitaires :
 mvn test
 
-Contribuer
+**Contribuer**
 Fork ce repository
 Créez une branche (git checkout -b feature/nouvelle-fonctionnalite)
 Faites vos changements
@@ -93,10 +92,10 @@ Committez vos modifications (git commit -am 'Ajout de fonctionnalité')
 Push vers la branche (git push origin feature/nouvelle-fonctionnalite)
 Ouvrez une Pull Request
 
-Auteurs
+**Auteurs**
 Bahraoui Abir - Développeur principal - (https://github.com/Abirbahraoui)
 
 Collaborateurs - Collaborateurs du projet
 
-License
+**License**
 Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
