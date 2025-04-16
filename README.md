@@ -1,50 +1,145 @@
-🔐 Backend Integration with Keycloak for Authentication and Authorization
-This part of the project focuses on integrating Keycloak for user authentication and authorization on the backend. The Keycloak server will issue JWT (JSON Web Tokens), which will be used to secure API endpoints.
+📦 Microservice de Gestion des Livrables
+Le microservice de gestion des livrables est un composant clé d'un système modulaire de gestion de projets, destiné à encadrer le cycle de vie des documents produits dans le cadre d’un projet (rapports, fichiers techniques, documents contractuels, etc.). Il permet de créer, consulter, suivre, modifier et supprimer les livrables tout en assurant leur suivi d'avancement.
 
-✅ Task Overview
-Keycloak Setup:
+🛠️ Technologies utilisées
+Ce microservice est développé en utilisant :
 
-Set up a Keycloak server to manage user authentication and authorization.
+Java 17+
 
-Configure a realm (e.g., my-app-realm), client (e.g., my-app-client), and roles (e.g., admin, user) for the application.
+Spring Boot
 
-Set Keycloak to issue JWT tokens upon successful login.
+Spring Data JPA
 
-Backend Configuration:
+REST API
 
-Secure API Endpoints: Protect sensitive endpoints using JWT authentication to ensure that only authenticated users can access them.
+Maven
 
-JWT Token Validation: Implement middleware or filters to validate JWT tokens on each request by verifying the signature and ensuring the token is not expired.
+Base de données : MySQL 
 
-Role-based Access Control (RBAC): Use roles defined in Keycloak to restrict access to specific endpoints. For example, only users with the admin role can access certain administrative routes.
+FeignClient : pour la communication avec le microservice de gestion de projets
 
-Keycloak Adapter: Integrate a Keycloak adapter or use a Keycloak library to manage the communication with the Keycloak server and simplify token validation.
+Lombok (facultatif pour réduire le boilerplate)
 
-Token Expiration and Refresh:
+iText : pour la génération future de rapports PDF
 
-Implement token expiration handling to reject expired tokens.
+Docker (optionnel pour le déploiement)
 
-If using refresh tokens, allow for token refresh to maintain a valid session.
+Eureka (dans l’architecture microservices globale)
 
-Backend Security:
+📌 Fonctionnalités principales
+🔄 CRUD des livrables : création, lecture, mise à jour, suppression.
 
-Ensure that all requests that require authentication have a valid Authorization header with the JWT token.
+📊 Suivi des statuts : chaque livrable a un statut comme InProgress, Completed, Late, Rejected, Approved.
 
-Configure your backend to only accept requests that have been authenticated by Keycloak.
+⏰ Détection automatique des retards : un livrable dépassant sa date d’échéance et non complété est automatiquement marqué comme Late.
 
-🔒 Keycloak Features in Use:
-JWT Authentication: Secure API endpoints by validating JWT tokens issued by Keycloak.
+🔗 Liaison avec un projet : chaque livrable est lié à un projet existant via le microservice de gestion de projets.
 
-Role-based Access Control (RBAC): Control access to specific resources based on user roles defined in Keycloak.
+📈 Calcul automatique de progression : le backend calcule le pourcentage d'avancement estimé en fonction des dates et du statut.
 
-✅ Keycloak Integration Steps:
-Configure Keycloak: Set up realms, clients, and roles.
+📄 Export PDF (prévu) : les données des livrables pourront être exportées sous forme de rapports PDF.
 
-API Security: Use Keycloak's adapter or a JWT validation library to secure backend routes.
+📦 Mise à jour des totaux : chaque ajout ou suppression de livrable met à jour les compteurs completed_count et total_count dans le projet.
 
-Validate JWT Tokens: Implement middleware to validate JWT tokens on incoming requests.
+🔗 Intégration avec d'autres microservices
+Le microservice utilise un FeignClient (ProjectClient) pour interagir avec le microservice de gestion de projets. Cela permet de :
 
-Role-based Restrictions: Use roles defined in Keycloak to restrict access to specific routes.
+Récupérer les détails d’un projet à partir de son nom.
 
-⚠️ Issue Resolved:
-The 401 Unauthorized issue occurred due to invalid or expired tokens being sent by the frontend. This was fixed by ensuring that the backend properly checks and validates the JWT tokens.
+Vérifier l’existence du projet avant la création d’un livrable.
+
+Mettre à jour les statistiques d’un projet (comme le nombre total de livrables).
+
+📥 Endpoints REST disponibles
+🔹 GET
+/livrables : Retourne tous les livrables.
+
+/livrables/{id} : Retourne un livrable par son identifiant.
+
+/livrables/title/{title} : Recherche d’un livrable par titre.
+
+/livrables/status/{status} : Filtrage par statut (InProgress, Completed, etc.).
+
+/livrables/format/{format} : Recherche par format (PDF, Word, Excel...).
+
+/livrables/project/{projectName} : Liste des livrables associés à un projet spécifique.
+
+/livrables/grouped-by-project : Liste groupée des livrables par projet.
+
+🔹 POST
+/livrables : Crée un nouveau livrable. Ce livrable est automatiquement lié à un projet et son statut initial est calculé selon la date d’échéance.
+
+🔹 PUT
+/livrables/{id} : Met à jour les informations d’un livrable.
+
+🔹 DELETE
+/livrables/{id} : Supprime un livrable et met à jour les totaux du projet associé.
+
+📈 Calculs automatiques
+Chaque fois qu’un livrable est consulté, le backend renvoie :
+
+Le pourcentage de progression estimé en fonction du temps écoulé par rapport à la date d’échéance.
+
+Un indicateur booléen s’il est en retard (true si la date de fin est dépassée).
+
+Un indicateur booléen s’il est terminé (true si son statut est Completed).
+
+Ces données sont encapsulées dans un LivrableDTO.
+
+⚙️ Exemple de logique métier
+Lors de la création ou mise à jour d’un livrable :
+
+Si la dueDate est dépassée et que le statut n’est pas Completed, alors le statut est automatiquement mis à Late.
+
+Si un livrable est supprimé, le nombre total de livrables et ceux terminés dans le projet sont décrémentés.
+
+En cas de mise à jour de statut vers Completed, le backend met à jour dynamiquement les totaux associés dans le projet.
+
+📦 Déploiement
+Prérequis
+Java 17+
+
+Maven
+
+Base de données (MySQL/PostgreSQL)
+
+(optionnel) Eureka Server
+
+Commandes de build et d’exécution
+bash
+Copier
+Modifier
+# Compilation
+mvn clean install
+
+# Lancement de l'application
+mvn spring-boot:run
+🔐 Sécurité (à intégrer)
+Ce microservice peut être sécurisé à l’aide de :
+
+JWT pour l’authentification
+
+OAuth2 pour les interactions multi-clients
+
+Rôles/permissions pour contrôler l’accès aux endpoints (ADMIN, RÉDACTEUR, VALIDATEUR...)
+
+🧪 Tests
+Des tests unitaires peuvent être développés avec :
+
+JUnit et Mockito pour la logique métier
+
+MockMvc pour tester les contrôleurs REST
+
+📚 Évolutions futures prévues
+📄 Génération de rapports PDF des livrables
+
+🔔 Système de notifications automatiques pour les retards, rejets et validations
+
+🔁 Intégration complète avec le module de workflows (revue/validation/approbation)
+
+📊 Tableaux de bord statistiques pour le suivi des livrables par projet
+
+👨‍💻 Auteur
+Ce microservice a été développé dans le cadre du projet PIDEV - Application de gestion des projets pour un bureau d’ingénierie.
+
+Auteur : [Amira Zaier]
