@@ -5,7 +5,7 @@ import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.services.LivrableService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,6 +65,24 @@ public class LivrableController {
         return livrableService.getLivrablesGroupedByProject();
     }
 
+
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+        byte[] pdfBytes = livrableService.generatePdfForLivrable(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename("livrable_" + id + ".pdf")
+                .build());
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/grouped-by-project")
+    public ResponseEntity<Map<Long, List<Livrable>>> getGroupedLivrables() {
+        return ResponseEntity.ok(livrableService.getLivrablesGroupedByProjectName());
+    }
 
 
 

@@ -7,14 +7,25 @@ import com.example.gestionlivrables.dto.StatsDTO;
 import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.repositories.LivrableRepository;
+import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.lowagie.text.Document;
+import java.io.InputStream;
 
-
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
 import java.time.Month;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LivrableService {
@@ -290,9 +301,93 @@ public class LivrableService {
         return dto;
     }
 
+    public byte[] generatePdfForLivrable(Long id) {
+        Livrable livrable = livrableRepo.findById(id).orElseThrow();
+        ProjectDTO project = projectClient.getProjectById(livrable.getIdProject());
 
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Document document = new Document(PageSize.A4);
 
+        try {
+            PdfWriter.getInstance(document, out);
+            document.open();
 
+            // ✅ Logo (loaded from classpath)
+            InputStream logoStream = getClass().getClassLoader().getResourceAsStream("static/images/logo.png");
+            if (logoStream != null) {
+                Image logo = Image.getInstance(logoStream.readAllBytes());
+                logo.scaleToFit(80, 80);
+                logo.setAlignment(Image.ALIGN_LEFT);
+                document.add(logo);
+            }
 
+            // ✅ Title
+            Font titleFont = new Font(Font.HELVETICA, 20, Font.BOLD, Color.BLUE);
+            Paragraph title = new Paragraph("Livrable Details", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingAfter(20);
+            document.add(title);
+
+            // ✅ Table Setup
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+            table.setWidths(new float[]{1f, 2f}); // Column width ratio
+
+            Font headerFont = new Font(Font.HELVETICA, 12, Font.BOLD, Color.WHITE);
+            Font cellFont = new Font(Font.HELVETICA, 11, Font.NORMAL, Color.BLACK);
+            Color headerColor = new Color(0, 102, 204); // Custom blue
+
+            // ✅ Livrable Info
+            addRow(table, "Title", livrable.getTitle(), headerFont, cellFont, headerColor);
+            addRow(table, "Format", String.valueOf(livrable.getFormat()), headerFont, cellFont, headerColor);
+            addRow(table, "Status", String.valueOf(livrable.getStatus()), headerFont, cellFont, headerColor);
+            addRow(table, "Completed / Total", livrable.getCompleted_count() + " / " + livrable.getTotal_count(), headerFont, cellFont, headerColor);
+            addRow(table, "Due Date", String.valueOf(livrable.getDue_date()), headerFont, cellFont, headerColor);
+            addRow(table, "Created At", String.valueOf(livrable.getCreatedAt()), headerFont, cellFont, headerColor);
+            addRow(table, "Description", livrable.getDescription(), headerFont, cellFont, headerColor);
+
+            // ✅ Project Info
+            addRow(table, "Project Name", project.getName(), headerFont, cellFont, headerColor);
+            addRow(table, "Project Description", project.getDescription(), headerFont, cellFont, headerColor);
+            addRow(table, "Start Date", String.valueOf(project.getStartDate()), headerFont, cellFont, headerColor);
+            addRow(table, "End Date", String.valueOf(project.getEndDate()), headerFont, cellFont, headerColor);
+            addRow(table, "Project Status", String.valueOf(project.getProjectStatus()), headerFont, cellFont, headerColor);
+
+            document.add(table);
+
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return out.toByteArray();
+    }
+
+    // ✅ Adapted for OpenPDF using java.awt.Color
+    private void addRow(PdfPTable table, String key, String value, Font headerFont, Font cellFont, Color headerColor) {
+        PdfPCell header = new PdfPCell(new Phrase(key, headerFont));
+        header.setBackgroundColor(headerColor);
+        header.setPadding(8);
+        header.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(header);
+
+        PdfPCell cell = new PdfPCell(new Phrase(value != null ? value : "-", cellFont));
+        cell.setPadding(8);
+        table.addCell(cell);
+    }
+
+    public Map<Long, List<Livrable>> getLivrablesGroupedByProjectName() {
+        List<Livrable> allLivrables = livrableRepo.findAll();
+        return allLivrables.stream()
+                .collect(Collectors.groupingBy(Livrable::getIdProject));
+    }
 }
+
+
+
+
+
+
 
