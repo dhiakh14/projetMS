@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from 'src/app/servicesAziz/services';
 import { Facture } from 'src/app/servicesAziz/models';
 
@@ -13,13 +13,16 @@ export class FactureDetailsComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
   isEditing: boolean = false;
+  
 
   // Add a temporary facture object for editing
   tempFacture: Facture | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private restService: RestService
+    private restService: RestService,
+    private router: Router
+
   ) {}
 
 
@@ -80,4 +83,13 @@ export class FactureDetailsComponent implements OnInit {
       );
     }
   }
+
+  navigateToFactureList() {
+    this.router.navigate(['/facture']);
+  }
+
+  
+
+  
+  
 }

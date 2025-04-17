@@ -6,7 +6,7 @@ export interface Facture {
   dateecheance: string;
   dateemission: string;
   etatFacture: 'PAYE' | 'ATTENTE' | 'RETARD';
-  idF?: number;
+  idF: number;
   montant: number;
-  number?: number;
+  number: number;
 }

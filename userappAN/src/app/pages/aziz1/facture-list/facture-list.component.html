@@ -35,6 +35,14 @@
         placeholder="Enter Facture Number"
       />
     </div>
+    <div class="stat-button-container">
+      <button class="stat-button" (click)="goToStats()">Statistique Facture</button>
+    </div>
+
+    <div class="stat-button-container">
+      <button class="stat-button" (click)="goToExchange()">Exchange €</button>
+    </div>
+    
 
     <!-- Factures table -->
     <table>
@@ -49,8 +57,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let facture of filteredFactures">
-          <td>{{ facture.dateemission | date: 'shortDate' }}</td>
+        <tr *ngFor="let facture of paginatedFactures">          <td>{{ facture.dateemission | date: 'shortDate' }}</td>
           <td>{{ facture.dateecheance | date: 'shortDate' }}</td>
           <td>
             <span class="status-badge" [ngClass]="{
@@ -73,10 +80,21 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination-controls">
-      <button (click)="changePage(page - 1)" [disabled]="page === 1">Previous</button>
-      <span>Page {{ page }} of {{ totalPages }}</span>
-      <button (click)="changePage(page + 1)" [disabled]="page === totalPages">Next</button>
-    </div>
+    
   </div>
+  <!-- Pagination Controls -->
+<div class="pagination-controls" *ngIf="totalPages() > 1">
+  <button class="page-button prev-next" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+  
+  <button *ngFor="let page of getPages()" 
+          class="page-button" 
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)">
+    {{ page }}
+  </button>
+  
+  <button class="page-button prev-next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages()">Suivant</button>
+  
+  <span class="page-info">Page {{ currentPage }} sur {{ totalPages() }}</span>
+</div>
 </div>

@@ -16,9 +16,10 @@ export class FactureListComponent implements OnInit {
   error: string | null = null; 
   selectedEtat: string = 'ALL';
   searchNumber: string = '';
-  page: number = 1;
-  limit: number = 10;
-  totalPages: number = 0;
+  currentPage: number = 1;
+itemsPerPage: number = 4; // Nombre d'éléments par page
+totalItems: number = 0;
+  
 
 
   constructor(private restService: RestService, private router: Router) {}
@@ -28,20 +29,20 @@ export class FactureListComponent implements OnInit {
   }
 
   loadFactures(): void {
-    this.loading = true;  // Activation du chargement
+    this.loading = true;
     this.restService.retrieveAllFacture().subscribe(
       (data: Facture[]) => {
-        this.factures = data; 
-        this.filteredFactures = data; // Initialisation des factures filtrées
+        this.factures = data;
+        this.filteredFactures = data;
+        this.totalItems = data.length; // Cette ligne est cruciale
         this.loading = false;
       },
       (error) => {
-        this.error = 'Erreur lors du chargement des factures'; 
+        this.error = 'Erreur lors du chargement des factures';
         this.loading = false;
       }
     );
   }
-
   searchFactures(): void {
     if (this.searchNumber.trim() !== '') {
       this.filteredFactures = this.factures.filter(
@@ -71,12 +72,14 @@ export class FactureListComponent implements OnInit {
 
   filterFactures(): void {
     if (this.selectedEtat === 'ALL') {
-      this.filteredFactures = this.factures; 
+      this.filteredFactures = this.factures;
     } else {
       this.filteredFactures = this.factures.filter(
         facture => facture.etatFacture === this.selectedEtat
       );
     }
+    this.totalItems = this.filteredFactures.length;
+    this.currentPage = 1; // Reset à la première page après filtrage
   }
 
   addFacture(): void {
@@ -112,10 +115,44 @@ exportFacturesToExcel(): void {
   
   alert('Fichier Excel exporté avec succès ! 🎉');
 }
-
- // Méthode pour changer de page
- changePage(page: number): void {
-  this.page = page;
-  this.loadFactures();
+goToStats() {
+  this.router.navigate(['/stat']);
 }
+
+goToExchange() {
+  this.router.navigate(['/rate']);
+}
+
+// Ajoutez ces méthodes pour la pagination
+get paginatedFactures(): Facture[] {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  return this.filteredFactures.slice(startIndex, startIndex + this.itemsPerPage);
+}
+
+totalPages(): number {
+  return Math.ceil(this.totalItems / this.itemsPerPage);
+}
+
+getPages(): number[] {
+  const total = this.totalPages();
+  const current = this.currentPage;
+  const pages = [];
+  
+  // Afficher jusqu'à 5 pages autour de la page courante
+  const start = Math.max(1, current - 2);
+  const end = Math.min(total, current + 2);
+  
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+  
+  return pages;
+}
+goToPage(page: number): void {
+  if (page >= 1 && page <= this.totalPages()) {
+    this.currentPage = page;
+  }
+}
+
+
 }

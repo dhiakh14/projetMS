@@ -1,4 +1,7 @@
 <div class="full-screen-background">
+  <button (click)="navigateToFactureList()"class="btn-update"> (←) factures</button>
+
+  
   <div *ngIf="loading" class="loading-spinner">
     <div class="spinner"></div>
     <p>Loading...</p>
@@ -18,6 +21,7 @@
 
     <!-- Update Button -->
     <button (click)="editFacture()" class="btn-update">Update Facture</button>
+
 
     <!-- Update Form (Initially hidden) -->
     <div *ngIf="isEditing" class="update-form">

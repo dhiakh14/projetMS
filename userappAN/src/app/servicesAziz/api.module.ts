@@ -8,7 +8,6 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { RestService } from './services/rest.service';
 
-
 /**
  * Module that provides all services and configuration.
  */

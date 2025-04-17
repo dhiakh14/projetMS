@@ -16,6 +16,10 @@ import { AjouterFacture$Params } from '../fn/rest/ajouter-facture';
 import { deleteFactureById } from '../fn/rest/delete-facture-by-id';
 import { DeleteFactureById$Params } from '../fn/rest/delete-facture-by-id';
 import { Facture } from '../models/facture';
+import { getRates } from '../fn/rest/get-rates';
+import { GetRates$Params } from '../fn/rest/get-rates';
+import { getStatistiquesParEtat } from '../fn/rest/get-statistiques-par-etat';
+import { GetStatistiquesParEtat$Params } from '../fn/rest/get-statistiques-par-etat';
 import { retrieveAllFacture } from '../fn/rest/retrieve-all-facture';
 import { RetrieveAllFacture$Params } from '../fn/rest/retrieve-all-facture';
 import { retrieveById } from '../fn/rest/retrieve-by-id';
@@ -25,11 +29,8 @@ import { UpdateFacture$Params } from '../fn/rest/update-facture';
 
 @Injectable({ providedIn: 'root' })
 export class RestService extends BaseService {
-  apiUrl: string;
-
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
-    this.apiUrl = config.rootUrl;
   }
 
   /** Path part for operation `updateFacture()` */
@@ -79,6 +80,68 @@ export class RestService extends BaseService {
   ajouterFacture(params: AjouterFacture$Params, context?: HttpContext): Observable<Facture> {
     return this.ajouterFacture$Response(params, context).pipe(
       map((r: StrictHttpResponse<Facture>): Facture => r.body)
+    );
+  }
+
+  /** Path part for operation `getStatistiquesParEtat()` */
+  static readonly GetStatistiquesParEtatPath = '/Rest/stats-etat';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getStatistiquesParEtat()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStatistiquesParEtat$Response(params?: GetStatistiquesParEtat$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+[key: string]: number;
+}>> {
+    return getStatistiquesParEtat(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getStatistiquesParEtat$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStatistiquesParEtat(params?: GetStatistiquesParEtat$Params, context?: HttpContext): Observable<{
+[key: string]: number;
+}> {
+    return this.getStatistiquesParEtat$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+[key: string]: number;
+}>): {
+[key: string]: number;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `getRates()` */
+  static readonly GetRatesPath = '/Rest/rates';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getRates()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRates$Response(params?: GetRates$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return getRates(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getRates$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRates(params?: GetRates$Params, context?: HttpContext): Observable<{
+}> {
+    return this.getRates$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
     );
   }
 
@@ -156,11 +219,5 @@ export class RestService extends BaseService {
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
-
-  // service.ts
-retrieveFacturesPaginated(page: number, limit: number): Observable<Facture[]> {
-  return this.http.get<Facture[]>(`${this.apiUrl}/factures?page=${page}&limit=${limit}`);
-}
-
 
 }
